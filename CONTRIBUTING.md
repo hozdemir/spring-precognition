@@ -1,6 +1,6 @@
-# Katkı rehberi
+# Contributing
 
-Java 17+ ve Maven 3.6.3+ gerekir. Frontend doğrulaması Node 20+ kullanır. Ana geliştirme akışı:
+Java 17+ and Maven 3.6.3+ are required. Frontend verification uses Node 20+. The main development workflow is:
 
 ```sh
 mvn test
@@ -8,14 +8,14 @@ mvn -Psecurity-verification test
 ./scripts/verify-external.sh
 ```
 
-Yerel `.tools/` Maven/cache kopyası varsa `./scripts/maven.sh` aynı build'i çalıştırır. Bu başlatıcı standart Maven Wrapper değildir. `PRECOGNITION_MAVEN_REPO` ile depo yolu seçilebilir; varsayılanı çalışma dizininin `.tools/m2` klasörüdür. `scripts/install-local.sh` normal tüketici projelerinin kullandığı `~/.m2/repository` içine kurar.
+If a cached Maven installation is available under `.tools/`, `./scripts/maven.sh` runs the same build. This launcher is not the standard Maven Wrapper. Set `PRECOGNITION_MAVEN_REPO` to choose the local repository path; the default is `.tools/m2` in the workspace. `scripts/install-local.sh` installs into the standard `~/.m2/repository` used by consumer projects.
 
-Örnek uygulamaların component scan'i kütüphane paketlerini kapsamaz. Entegrasyon yalnız starter metadata'sı üzerinden kurulmalıdır. Testleri geçirmek için örneğe `@Import(PrecognitionConfiguration.class)` eklemeyin; bu kurulum hatasını gizler.
+The example applications do not include library packages in their component scans. Integration must work through the starter's auto-configuration metadata. Do not add `@Import(PrecognitionConfiguration.class)` to an example to make tests pass; this hides setup errors.
 
-Bir düzeltme, hatalı davranışı yeniden üreten test içermelidir. Precognitive istekte controller çağrısı sıfır olmalıdır. Seçilmemiş constraint'lerin gerçekten çalışmadığı sayaçla doğrulanmalıdır. Yalnız HTTP 204 görülmesi yeterli kanıt değildir. Normal submit'in validation, authorization ve başarı akışı korunmalıdır.
+A bug fix should include a test that reproduces the incorrect behavior. Precognitive requests must never invoke the controller method. Use invocation counters to verify that unselected constraints do not execute. An HTTP 204 response alone is insufficient evidence. Preserve validation, authorization, and successful execution for normal submissions.
 
-HTTP ve browser testleri gerçek loopback portu açar. Ortam port açmayı veya bağımlılık indirmeyi engelliyorsa sonucu geçti diye kaydetmeyin. Surefire ve Playwright raporları generated artifact'tir; Git'e alınmaz.
+HTTP and browser tests open real loopback ports. If the environment prevents opening ports or downloading dependencies, do not report those checks as passed. Surefire and Playwright reports are generated artifacts and must not be committed to Git.
 
-Public API `precognition-core` içindedir. MVC/JSON/binder bileşenleri kararlı extension API değildir. Jackson 2/3 import'ları kendi Boot adaptörlerinde kalmalıdır. Spring/provider sürümlerini ilgili Boot parent/BOM yönetir. İki starter aynı tüketici projeye eklenmez.
+The public API lives in `precognition-core`. MVC, JSON, and binder components are not stable extension APIs. Jackson 2 and Jackson 3 imports must remain in their respective Boot adapters. The corresponding Boot parent or BOM manages Spring and validation provider versions. Do not add both starters to the same consumer project.
 
-Katkılar [MIT](LICENSE) lisansı altında sunulur. Public release öncesinde tam doğrulama ve sürüm metadata'sı kontrol edilir.
+Contributions are provided under the [MIT License](LICENSE). Before a public release, run the full verification pipeline and check the version metadata.

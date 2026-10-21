@@ -1,9 +1,9 @@
-# Güvenlik
+# Security
 
-Öncelikli güvenlik özellikleri: precognitive isteklerin controller'a ulaşmaması; normal authorization/CSRF davranışının korunması; desteklenmeyen imzaların başlangıçta reddedilmesi; body/header/response sınırlarının uygulanmasıdır.
+The primary security guarantees are preventing precognitive requests from invoking the controller method, preserving normal authorization and CSRF behavior, rejecting unsupported handler signatures at startup, and enforcing request body, header, and response limits.
 
-Henüz yayımlanmış kararlı sürüm ve desteklenen eski sürüm serisi yoktur. Güncel sürüm matrisi `README.md` içindedir.
+There is no published stable release or supported legacy release series yet. The current version matrix is available in [README.md](README.md#verification-status).
 
-Bir açık bulursanız geçerli kimlik bilgisi veya gerçek kullanıcı verisi paylaşmayın. GitHub deposunda private vulnerability reporting etkinse Security sekmesinden özel rapor gönderin. Etkin değilse yeniden üretim ayrıntılarını kamuya açmadan maintainer ile özel iletişim kanalı belirleyin. Rapor; kesin sürümleri, beklenen/gerçek davranışı ve mümkünse controller'ın çalıştığını gösteren minimal test içermelidir.
+If you discover a vulnerability, do not share valid credentials or real user data. If private vulnerability reporting is enabled for the GitHub repository, submit a private report through the Security tab. Otherwise, arrange a private communication channel with the maintainer before disclosing reproduction details publicly. Include exact versions, expected and actual behavior, and, where possible, a minimal test demonstrating that the controller method executes unexpectedly.
 
-Kütüphane authentication sistemi kurmaz, CSRF'yi kapatmaz ve otomatik CORS açmaz. Constraint, converter ve authorizer kodu uygulama yetkileriyle çalışır. Son submit'te iş kuralları, DB constraint'leri ve yetkilendirme yeniden uygulanmalıdır.
+The library does not configure an authentication system, disable CSRF, or automatically enable CORS. Constraint, converter, and authorizer code runs with the application's privileges. Business rules, database constraints, and authorization must be enforced again on the final submission.
