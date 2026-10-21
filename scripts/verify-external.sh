@@ -16,6 +16,6 @@ for PRECOGNITION_PLATFORM in boot3 boot4; do
 done
 ./scripts/maven.sh -B -ntp -Psecurity-verification test
 ./scripts/verify-browser.sh
-./scripts/maven.sh -B -ntp -DskipTests install
-python3 scripts/verify-artifacts.py
+./scripts/maven.sh -B -ntp -Prelease-artifacts -DskipTests install
+python3 scripts/verify-artifacts.py --release
 ./scripts/verify-consumer.sh

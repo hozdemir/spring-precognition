@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project child.project.url.inherit.append.path="false" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.springframework.boot</groupId>
@@ -7,9 +7,25 @@
     <version>4.1.1</version>
     <relativePath/>
   </parent>
-  <groupId>dev.precognition</groupId>
+  <groupId>io.github.hozdemir</groupId>
   <artifactId>precognition-spring-boot4-autoconfigure</artifactId>
   <version>0.1.0-SNAPSHOT</version>
+  <name>Spring Precognition — Boot 4 Auto-configuration</name>
+  <description>Live server validation for Spring MVC forms on Spring Boot 4.</description>
+  <url>https://github.com/hozdemir/spring-precognition</url>
+  <developers>
+    <developer>
+      <id>hozdemir</id>
+      <name>hozdemir</name>
+      <url>https://github.com/hozdemir</url>
+    </developer>
+  </developers>
+  <scm child.scm.connection.inherit.append.path="false" child.scm.developerConnection.inherit.append.path="false" child.scm.url.inherit.append.path="false">
+    <connection>scm:git:https://github.com/hozdemir/spring-precognition.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/hozdemir/spring-precognition.git</developerConnection>
+    <url>https://github.com/hozdemir/spring-precognition</url>
+    <tag>HEAD</tag>
+  </scm>
   <licenses>
     <license>
       <name>MIT License</name>
@@ -18,12 +34,14 @@
     </license>
   </licenses>
   <properties>
+    <maven.deploy.skip>false</maven.deploy.skip>
+    <precognition.central.skip-upload>true</precognition.central.skip-upload>
     <java.version>17</java.version>
     <surefire.failIfNoSpecifiedTests>false</surefire.failIfNoSpecifiedTests>
   </properties>
   <dependencies>
     <dependency>
-      <groupId>dev.precognition</groupId>
+      <groupId>io.github.hozdemir</groupId>
       <artifactId>precognition-spring-webmvc</artifactId>
       <version>${project.version}</version>
     </dependency>
@@ -53,4 +71,123 @@
       <scope>provided</scope>
     </dependency>
   </dependencies>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>3.4.0</version>
+          <configuration>
+            <excludeResources>false</excludeResources>
+          </configuration>
+          <executions>
+            <execution>
+              <id>attach-sources</id>
+              <phase>package</phase>
+              <goals><goal>jar-no-fork</goal></goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>3.12.0</version>
+          <configuration>
+            <release>17</release>
+            <encoding>UTF-8</encoding>
+            <doclint>all,-missing</doclint>
+            <detectLinks>false</detectLinks>
+          </configuration>
+          <executions>
+            <execution>
+              <id>attach-javadocs</id>
+              <phase>package</phase>
+              <goals><goal>jar</goal></goals>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+  <profiles>
+    <profile>
+      <id>release-artifacts</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>central</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-enforcer-plugin</artifactId>
+            <version>3.6.3</version>
+            <executions>
+              <execution>
+                <id>require-central-release</id>
+                <goals><goal>enforce</goal></goals>
+                <configuration>
+                  <rules>
+                    <requireReleaseVersion/>
+                    <requireReleaseDeps/>
+                  </rules>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>3.2.8</version>
+            <configuration>
+              <bestPractices>true</bestPractices>
+            </configuration>
+            <executions>
+              <execution>
+                <id>sign-central-artifacts</id>
+                <phase>verify</phase>
+                <goals><goal>sign</goal></goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.sonatype.central</groupId>
+            <artifactId>central-publishing-maven-plugin</artifactId>
+            <version>0.12.0</version>
+            <extensions>true</extensions>
+            <configuration>
+              <publishingServerId>central</publishingServerId>
+              <autoPublish>false</autoPublish>
+              <skipUpload>${precognition.central.skip-upload}</skipUpload>
+              <skipPublishing>${maven.deploy.skip}</skipPublishing>
+              <excludeArtifacts>
+                <excludeArtifact>precognition-example-boot3</excludeArtifact>
+                <excludeArtifact>precognition-example-boot4</excludeArtifact>
+              </excludeArtifacts>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

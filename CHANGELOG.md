@@ -2,6 +2,8 @@
 
 ## Unreleased — 0.1.0-SNAPSHOT
 
+- Set the Maven group ID to `io.github.hozdemir` while retaining the `dev.precognition.spring` Java API package.
+- Added project and SCM metadata, source and Javadoc artifacts, and an opt-in signed Central publishing profile with uploads disabled by default.
 - Moved the public annotation, validation modes, request context, and authorization SPI into a separate core module.
 - Separated the Spring MVC implementation from the Boot 3/Jackson 2 and Boot 4/Jackson 3 auto-configuration modules.
 - Added platform-specific dependency starters and example applications that consume them from separate packages.

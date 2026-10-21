@@ -16,6 +16,8 @@ A bug fix should include a test that reproduces the incorrect behavior. Precogni
 
 HTTP and browser tests open real loopback ports. If the environment prevents opening ports or downloading dependencies, do not report those checks as passed. Surefire and Playwright reports are generated artifacts and must not be committed to Git.
 
+The full verification pipeline also builds and checks source and Javadoc JARs through the `release-artifacts` profile. This profile requires no signing keys or publishing credentials and does not upload artifacts.
+
 The public API lives in `precognition-core`. MVC, JSON, and binder components are not stable extension APIs. Jackson 2 and Jackson 3 imports must remain in their respective Boot adapters. The corresponding Boot parent or BOM manages Spring and validation provider versions. Do not add both starters to the same consumer project.
 
 Contributions are provided under the [MIT License](LICENSE). Before a public release, run the full verification pipeline and check the version metadata.

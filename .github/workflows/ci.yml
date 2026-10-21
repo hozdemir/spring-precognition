@@ -34,10 +34,10 @@ jobs:
             PRECOGNITION_FIXTURES="../../target/validation/$platform-laravel-fixtures.json" npm test --prefix validation/client
             PRECOGNITION_REPORT="$PWD/examples/$platform/target/surefire-reports/TEST-dev.precognition.example.PrecognitionIntegrationTest.xml" npm run test:http --prefix validation/client
           done
-      - name: Build and install artifacts
-        run: ./scripts/maven.sh -B -ntp -DskipTests install
-      - name: Check distribution contents
-        run: python3 scripts/verify-artifacts.py
+      - name: Build and install runtime, sources and Javadoc artifacts without publishing
+        run: ./scripts/maven.sh -B -ntp -Prelease-artifacts -DskipTests install
+      - name: Check release artifact contents
+        run: python3 scripts/verify-artifacts.py --release
       - name: Verify standalone installed-JAR consumers
         run: ./scripts/verify-consumer.sh
       - uses: actions/upload-artifact@v4

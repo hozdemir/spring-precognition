@@ -4,7 +4,7 @@
 
 This repository contains the shared Java API, the Spring MVC implementation, Spring Boot 3 and 4 starters, example applications, and HTTP and browser verification suites. It is licensed under the [MIT License](LICENSE).
 
-**Distribution status:** The current source version is `0.1.0-SNAPSHOT`. It has not been published to Maven Central. Install the artifacts locally or publish them to your own Maven repository before using the dependencies below. `dev.precognition` is a provisional group ID; ownership of that namespace has not been verified. See [Verification status](#verification-status) for tested versions, completed checks, and outstanding verification.
+**Distribution status:** The current source version is `0.1.0-SNAPSHOT`. It has not been published to Maven Central. Install the artifacts locally or publish them to your own Maven repository before using the dependencies below. The Maven group ID is `io.github.hozdemir`; the Java API package remains `dev.precognition.spring`. See [Verification status](#verification-status) for tested versions, completed checks, and outstanding verification.
 
 `-SNAPSHOT` marks a development version and can remain in source commits pushed to GitHub. A Maven Central release will use a version without that suffix. See [Maven's snapshot explanation](https://maven.apache.org/guides/getting-started/index.html#what-is-a-snapshot-version) and the [Central release requirements](https://central.sonatype.org/publish/requirements/).
 
@@ -32,7 +32,7 @@ References: [Laravel documentation](https://laravel.com/docs/13.x/precognition),
 
 Add the library JARs to **your Spring application's dependencies**. The code runs inside the application. It does not require a separate validation server, agent, container, database table, or operating system service.
 
-For local development, `mvn install` normally writes the artifacts to `~/.m2/repository/dev/precognition/`. Maven or Gradle can then resolve the starter from that local repository. When you package your application, its required library JARs travel with the other runtime dependencies. Deploy the application artifact as usual; you do not run `mvn install` on a production server.
+For local development, `mvn install` normally writes the artifacts to `~/.m2/repository/io/github/hozdemir/`. Maven or Gradle can then resolve the starter from that local repository. When you package your application, its required library JARs travel with the other runtime dependencies. Deploy the application artifact as usual; you do not run `mvn install` on a production server.
 
 For team use, publish the artifacts to Nexus, Artifactory, or another Maven repository. Once a Maven Central release is available, consumers will be able to resolve it without cloning this source repository. Pushing source code to GitHub does not publish Maven artifacts.
 
@@ -60,7 +60,7 @@ This helper also installs into the standard `~/.m2/repository` used by consumer 
 
 ```xml
 <dependency>
-  <groupId>dev.precognition</groupId>
+  <groupId>io.github.hozdemir</groupId>
   <artifactId>precognition-spring-boot3-starter</artifactId>
   <version>0.1.0-SNAPSHOT</version>
 </dependency>
@@ -70,7 +70,7 @@ This helper also installs into the standard `~/.m2/repository` used by consumer 
 
 ```xml
 <dependency>
-  <groupId>dev.precognition</groupId>
+  <groupId>io.github.hozdemir</groupId>
   <artifactId>precognition-spring-boot4-starter</artifactId>
   <version>0.1.0-SNAPSHOT</version>
 </dependency>
@@ -88,7 +88,7 @@ repositories {
 
 dependencies {
     // For Boot 3.5, use precognition-spring-boot3-starter instead.
-    implementation("dev.precognition:precognition-spring-boot4-starter:0.1.0-SNAPSHOT")
+    implementation("io.github.hozdemir:precognition-spring-boot4-starter:0.1.0-SNAPSHOT")
 }
 ```
 
@@ -303,7 +303,7 @@ The tests check more than response status: the controller must not execute durin
 
 ## Verification status
 
-The complete external pipeline passed on October 21, 2026, for `0.1.0-SNAPSHOT` on Java 17.0.20, using Spring Boot 3.5.16 and 4.1.1:
+The complete external pipeline passed on October 21, 2026, for Maven group `io.github.hozdemir` at version `0.1.0-SNAPSHOT`, on Java 17.0.20, using Spring Boot 3.5.16 and 4.1.1. The run completed with exit code 0 in 60.786 seconds:
 
 | Check | Across both Boot versions |
 | --- | --- |
@@ -316,7 +316,9 @@ The complete external pipeline passed on October 21, 2026, for `0.1.0-SNAPSHOT` 
 | Standalone consumers resolving installed starter JARs | 2 passed |
 | **Total** | **258 passed** |
 
-The pipeline also built and installed the artifacts and checked all six library JARs for license and distribution contents. Standalone consumers used installed JARs without the library's reactor classes or manual configuration imports. Java 21 and remote CI had not been verified in this local run; Maven Central publication is still pending.
+The pipeline also built, installed, and checked all 18 library artifacts: six runtime JARs, six source JARs, and six Javadoc JARs. Runtime checks include coordinates, license, and distribution contents. All 18 files matched their installed copies in the workspace's `.tools/m2` repository. Standalone consumers resolved the new coordinates' installed JARs without the library's reactor classes or manual configuration imports and passed real HTTP tests.
+
+The earlier [Verify workflow run](https://github.com/hozdemir/spring-precognition/actions/runs/39649289102) succeeded with the configured Java 17/21 backend matrix and browser job before the namespace migration. The updated workflow still needs to run against the new coordinates. GPG signing, Central bundle generation, server validation, and publication have not yet been verified. These results apply to the tested snapshot; a release version requires its own verification.
 
 The tested dependency versions were:
 

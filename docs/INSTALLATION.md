@@ -28,11 +28,11 @@ This builds the Maven modules, runs the default consumer, startup, and MVC tests
 Example paths after installation:
 
 ```text
-~/.m2/repository/dev/precognition/precognition-parent/0.1.0-SNAPSHOT/
-~/.m2/repository/dev/precognition/precognition-core/0.1.0-SNAPSHOT/
-~/.m2/repository/dev/precognition/precognition-spring-webmvc/0.1.0-SNAPSHOT/
-~/.m2/repository/dev/precognition/precognition-spring-boot4-autoconfigure/0.1.0-SNAPSHOT/
-~/.m2/repository/dev/precognition/precognition-spring-boot4-starter/0.1.0-SNAPSHOT/
+~/.m2/repository/io/github/hozdemir/precognition-parent/0.1.0-SNAPSHOT/
+~/.m2/repository/io/github/hozdemir/precognition-core/0.1.0-SNAPSHOT/
+~/.m2/repository/io/github/hozdemir/precognition-spring-webmvc/0.1.0-SNAPSHOT/
+~/.m2/repository/io/github/hozdemir/precognition-spring-boot4-autoconfigure/0.1.0-SNAPSHOT/
+~/.m2/repository/io/github/hozdemir/precognition-spring-boot4-starter/0.1.0-SNAPSHOT/
 ```
 
 Copying only the starter JAR is insufficient because the starter has transitive dependencies. Let Maven or Gradle resolve the complete dependency graph from the POMs.
@@ -43,7 +43,7 @@ Add the appropriate dependency to your application's `pom.xml`:
 
 ```xml
 <dependency>
-  <groupId>dev.precognition</groupId>
+  <groupId>io.github.hozdemir</groupId>
   <artifactId>precognition-spring-boot4-starter</artifactId>
   <version>0.1.0-SNAPSHOT</version>
 </dependency>
@@ -60,7 +60,7 @@ repositories {
 }
 
 dependencies {
-    implementation("dev.precognition:precognition-spring-boot4-starter:0.1.0-SNAPSHOT")
+    implementation("io.github.hozdemir:precognition-spring-boot4-starter:0.1.0-SNAPSHOT")
 }
 ```
 
@@ -91,7 +91,7 @@ The example filter requires `Authorization: Bearer demo-token` on its protected 
 
 Package and deploy the application with its Spring Precognition dependency using your existing process. For example, your Spring Boot application's executable JAR or container image includes the required library dependencies. The target server does not need a clone of this repository, a separate source build, or a Precognition service.
 
-For team distribution, make the artifacts available through a shared Maven repository. Maven Central publication is pending final namespace ownership and project metadata.
+For team distribution, make the artifacts available through a shared Maven repository. The verified Maven namespace is `io.github.hozdemir`; Java imports continue to use `dev.precognition.spring`. Maven Central publication is pending a signed release and final verification.
 
 ## Separate frontend origins and CORS
 

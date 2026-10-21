@@ -5,7 +5,14 @@ PRECOGNITION_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 cd "$PRECOGNITION_ROOT"
 python3 - <<'PY'
 from pathlib import Path
-for platform,boot in [('boot3','3.5.16'),('boot4','4.1.1')]:
+import xml.etree.ElementTree as ET
+namespace = {'m': 'http://maven.apache.org/POM/4.0.0'}
+project = ET.parse('pom.xml').getroot()
+group = project.find('m:groupId', namespace).text
+version = project.find('m:version', namespace).text
+boot3 = project.find('m:parent/m:version', namespace).text
+boot4 = ET.parse('examples/boot4/pom.xml').getroot().find('m:parent/m:version', namespace).text
+for platform,boot in [('boot3',boot3),('boot4',boot4)]:
  root=Path('.tools/consumer-verification')/platform
  source=root/'src/test/java/consumer'
  source.mkdir(parents=True,exist_ok=True)
@@ -13,7 +20,7 @@ for platform,boot in [('boot3','3.5.16'),('boot4','4.1.1')]:
  <parent><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-parent</artifactId><version>{boot}</version><relativePath/></parent>
  <groupId>consumer</groupId><artifactId>standalone-consumer</artifactId><version>1.0</version>
  <properties><java.version>17</java.version></properties><dependencies>
- <dependency><groupId>dev.precognition</groupId><artifactId>precognition-spring-{platform}-starter</artifactId><version>0.1.0-SNAPSHOT</version></dependency>
+ <dependency><groupId>{group}</groupId><artifactId>precognition-spring-{platform}-starter</artifactId><version>{version}</version></dependency>
  <dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-test</artifactId><scope>test</scope></dependency>
  </dependencies></project>''')
  (source/'ConsumerTest.java').write_text('''package consumer;
