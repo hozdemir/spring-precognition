@@ -1,5 +1,8 @@
 # Local tooling, dependencies and generated reports
 /.maintainer/
+/AGENTS.md
+/SPEC.md
+/VERIFICATION.md
 .tools/
 target/
 node_modules/

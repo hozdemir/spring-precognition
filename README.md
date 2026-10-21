@@ -4,7 +4,7 @@
 
 This repository contains the shared Java API, the Spring MVC implementation, Spring Boot 3 and 4 starters, example applications, and HTTP and browser verification suites. It is licensed under the [MIT License](LICENSE).
 
-**Distribution status:** The current source version is `0.1.0-SNAPSHOT`. It has not been published to Maven Central. Install the artifacts locally or publish them to your own Maven repository before using the dependencies below. `dev.precognition` is a provisional group ID; ownership of that namespace has not been verified. See [VERIFICATION.md](VERIFICATION.md) for tested versions, completed checks, and outstanding verification.
+**Distribution status:** The current source version is `0.1.0-SNAPSHOT`. It has not been published to Maven Central. Install the artifacts locally or publish them to your own Maven repository before using the dependencies below. `dev.precognition` is a provisional group ID; ownership of that namespace has not been verified. See [Verification status](#verification-status) for tested versions, completed checks, and outstanding verification.
 
 `-SNAPSHOT` marks a development version and can remain in source commits pushed to GitHub. A Maven Central release will use a version without that suffix. See [Maven's snapshot explanation](https://maven.apache.org/guides/getting-started/index.html#what-is-a-snapshot-version) and the [Central release requirements](https://central.sonatype.org/publish/requirements/).
 
@@ -316,15 +316,26 @@ The complete external pipeline passed on October 21, 2026, for `0.1.0-SNAPSHOT` 
 | Standalone consumers resolving installed starter JARs | 2 passed |
 | **Total** | **258 passed** |
 
-The pipeline also built and installed the artifacts and checked all six library JARs for license and distribution contents. Standalone consumers used installed JARs without the library's reactor classes or manual configuration imports. Java 21 and remote CI remain unverified; Maven Central publication is still pending. Exact versions, artifact hashes, evidence, and limits are recorded in [VERIFICATION.md](VERIFICATION.md).
+The pipeline also built and installed the artifacts and checked all six library JARs for license and distribution contents. Standalone consumers used installed JARs without the library's reactor classes or manual configuration imports. Java 21 and remote CI had not been verified in this local run; Maven Central publication is still pending.
+
+The tested dependency versions were:
+
+| Component | Boot 3 | Boot 4 |
+| --- | --- | --- |
+| Spring Boot | 3.5.16 | 4.1.1 |
+| Spring MVC | 6.2.19 | 7.0.9 |
+| Jackson databind | 2.21.4 | 3.1.5 |
+| Hibernate Validator | 8.0.3.Final | 9.1.3.Final |
+| Spring Security | 6.5.11 | 7.1.1 |
+| Embedded Tomcat | 10.1.55 | 11.0.24 |
+
+The official `laravel-precognition`, React, and Vue clients were tested at version 2.1.0, with React 19.2.0, Vue 3.5.27, and Playwright 1.64.1. These results cover the listed versions and supported features; they do not establish load, endurance, or compatibility guarantees for every Servlet container or Spring customization.
 
 ## Documentation and contributing
 
 - [Installation and consumer projects](docs/INSTALLATION.md)
 - [Architecture and design decisions](docs/ARCHITECTURE.md)
 - [HTTP protocol and CORS](docs/PROTOCOL.md)
-- [Verification record](VERIFICATION.md)
-- [Product and protocol specification](SPEC.md)
 - [Contributing](CONTRIBUTING.md), [security reporting](SECURITY.md), and [changelog](CHANGELOG.md)
 
 The MIT License permits use in commercial and closed-source applications, provided the license and copyright notices are retained. See [LICENSE](LICENSE) for the full text. Thanks to Laravel and Spring for the ideas and infrastructure this integration builds on.

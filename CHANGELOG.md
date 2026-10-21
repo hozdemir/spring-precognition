@@ -17,4 +17,4 @@
 - Boot 4 library modüllerinde reactor genelindeki hedefli Surefire test seçimini destekle; iki örnek uygulamada eksik test seçiminin sessizce geçmesini engelle.
 - README'yi motivasyon, Laravel referansları, kurulum ve kullanım örnekleri korunarak İngilizceye çevir.
 
-Kaynak sürümü henüz Maven Central'a yayımlanmadı. Kesin test sonuçları ve çalıştırılamayan kontroller `VERIFICATION.md` içindedir.
+Kaynak sürümü henüz Maven Central'a yayımlanmadı. Test sonuçları ve doğrulama sınırları `README.md` içindedir.

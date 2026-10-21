@@ -9,7 +9,7 @@ Spring Precognition is installed as an application dependency. It runs inside yo
 | Boot 3.5 / Spring 6.2 | `precognition-spring-boot3-starter` | Jackson 2 |
 | Boot 4.1 / Spring 7 | `precognition-spring-boot4-starter` | Jackson 3 |
 
-The Java baseline is 17. Exact verified patch versions are recorded in [VERIFICATION.md](../VERIFICATION.md). Boot 2, WebFlux, and native/AOT are outside the supported scope. Keep your application's existing Spring Boot parent or BOM.
+The Java baseline is 17. Exact verified patch versions are listed in the README's [verification status](../README.md#verification-status). Boot 2, WebFlux, and native/AOT are outside the supported scope. Keep your application's existing Spring Boot parent or BOM.
 
 ## Installing from source locally
 
