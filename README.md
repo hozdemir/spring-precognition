@@ -4,7 +4,7 @@
 
 This repository contains the shared Java API, the Spring MVC implementation, Spring Boot 3 and 4 starters, example applications, and HTTP and browser verification suites. It is licensed under the [MIT License](LICENSE).
 
-**Distribution status:** The source is being prepared for release `0.1.0`. It has not been published to Maven Central. Install the artifacts locally or publish them to your own Maven repository before using the dependencies below. The Maven group ID is `io.github.hozdemir`; the Java API package remains `dev.precognition.spring`. See [Verification status](#verification-status) for tested versions, completed checks, and outstanding verification.
+**Latest release:** `0.1.0` is published to Maven Central. The Maven group ID is `io.github.hozdemir`; the Java API package is `dev.precognition.spring`. See [Verification status](#verification-status) for tested versions, completed checks, and verification limits.
 
 ## Why this project exists
 
@@ -30,29 +30,13 @@ References: [Laravel documentation](https://laravel.com/docs/13.x/precognition),
 
 Add the library JARs to **your Spring application's dependencies**. The code runs inside the application. It does not require a separate validation server, agent, container, database table, or operating system service.
 
-For local development, `mvn install` normally writes the artifacts to `~/.m2/repository/io/github/hozdemir/`. Maven or Gradle can then resolve the starter from that local repository. When you package your application, its required library JARs travel with the other runtime dependencies. Deploy the application artifact as usual; you do not run `mvn install` on a production server.
-
-For team use, publish the artifacts to Nexus, Artifactory, or another Maven repository. Once a Maven Central release is available, consumers will be able to resolve it without cloning this source repository. Pushing source code to GitHub does not publish Maven artifacts.
+Maven or Gradle resolves the published starter and its transitive dependencies from Maven Central. When you package your application, its required library JARs travel with the other runtime dependencies. Deploy the application artifact as usual.
 
 ## Installation
 
-### 1. Install the artifacts locally
+Java 17+ is required. Add the published dependency directly to your application; cloning or building this repository is optional. See the [installation guide](docs/INSTALLATION.md) for local source builds and repository overrides.
 
-Java 17+ and Maven 3.6.3+ are required:
-
-```sh
-mvn install
-```
-
-If Maven is not on your PATH and this workspace has a cached Maven installation under `.tools/`, use:
-
-```sh
-./scripts/install-local.sh
-```
-
-This helper also installs into the standard `~/.m2/repository` used by consumer projects. In contrast, `scripts/maven.sh`, which is used for repository verification, defaults to `.tools/m2`. See the [installation guide](docs/INSTALLATION.md) for repository overrides and Gradle setup.
-
-### 2. Add the starter for your Spring Boot version
+### 1. Add the starter for your Spring Boot version
 
 **Spring Boot 3.5:**
 
@@ -76,11 +60,10 @@ This helper also installs into the standard `~/.m2/repository` used by consumer 
 
 Choose one starter. Keep your application's own Spring Boot parent or BOM; you do not need to use this library's parent POM. The Boot 3 adapter uses Jackson 2, and the Boot 4 adapter uses Jackson 3.
 
-For a Gradle Kotlin DSL consumer using locally installed artifacts:
+For a Gradle Kotlin DSL consumer:
 
 ```kotlin
 repositories {
-    mavenLocal()
     mavenCentral()
 }
 
@@ -92,7 +75,7 @@ dependencies {
 
 The starter brings in MVC, validation, and auto-configuration dependencies. You do not need to expand component scanning or manually import library configuration. An application's existing `WebMvcRegistrations` is preserved. If an opted-in endpoint requires the library adapter but `@EnableWebMvc` or a custom adapter prevents its installation, startup fails with an explicit configuration error. Applications without opted-in endpoints retain their existing MVC registration.
 
-### 3. Opt in an endpoint
+### 2. Opt in an endpoint
 
 ```java
 import dev.precognition.spring.Precognitive;
@@ -127,7 +110,7 @@ public class UserController {
 
 `UserService` and `UserResponse` are application-owned types. A valid normal submission calls `users.create`. A precognitive request skips that call. Opt-in is per endpoint; other endpoints retain their normal submission behavior.
 
-### 4. Validate through the same endpoint
+### 3. Validate through the same endpoint
 
 ```sh
 curl -i http://localhost:8080/users \
@@ -316,7 +299,9 @@ The complete external pipeline passed on October 21, 2026, for Maven group `io.g
 
 The pipeline also built, installed, and checked all 18 library artifacts: six runtime JARs, six source JARs, and six Javadoc JARs. Runtime checks include coordinates, license, and distribution contents. All 18 files matched their installed copies in the workspace's `.tools/m2` repository. Standalone consumers resolved the new coordinates' installed JARs without the library's reactor classes or manual configuration imports and passed real HTTP tests.
 
-The signed Central bundle contains seven POMs and 18 JARs. All 25 detached signatures and 100 checksum files were verified locally; bundled payloads match the built artifacts and source POMs. Example applications are excluded. Server-side validation and Central publication are still pending.
+The signed Central bundle contains seven POMs and 18 JARs. All 25 detached signatures and 100 checksum files were verified locally; bundled payloads match the built artifacts and source POMs. Example applications are excluded. Version `0.1.0` completed Central validation and publication.
+
+A separate post-publication check started with an empty Maven local repository and downloaded the released dependencies from Maven Central. Both standalone consumers passed real HTTP tests on Java 17.0.20 with Boot 3.5.16 and 4.1.1: selected-field validation returned 204 without invoking the controller, and a normal submission returned 200 and invoked it once. The two additional tests passed with zero failures, errors, or skips. Their classpaths contained the published library JARs, without library reactor classes or manual configuration imports.
 
 The earlier [Verify workflow run](https://github.com/hozdemir/spring-precognition/actions/runs/39649289102) succeeded with the configured Java 17/21 backend matrix and browser job before the namespace migration. CI results for the final `0.1.0` release source are not yet recorded.
 

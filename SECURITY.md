@@ -2,7 +2,7 @@
 
 The primary security guarantees are preventing precognitive requests from invoking the controller method, preserving normal authorization and CSRF behavior, rejecting unsupported handler signatures at startup, and enforcing request body, header, and response limits.
 
-There is no published stable release or supported legacy release series yet. The current version matrix is available in [README.md](README.md#verification-status).
+The current published release is `0.1.0`. There are no supported legacy release series. The tested version matrix is available in [README.md](README.md#verification-status).
 
 If you discover a vulnerability, do not share valid credentials or real user data. If private vulnerability reporting is enabled for the GitHub repository, submit a private report through the Security tab. Otherwise, arrange a private communication channel with the maintainer before disclosing reproduction details publicly. Include exact versions, expected and actual behavior, and, where possible, a minimal test demonstrating that the controller method executes unexpectedly.
 

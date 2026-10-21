@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.0 — Unreleased
+## 0.1.0 — 2026-10-21
 
 - Set the Maven group ID to `io.github.hozdemir` while retaining the `dev.precognition.spring` Java API package.
 - Added project and SCM metadata, source and Javadoc artifacts, and an opt-in signed Central publishing profile with uploads disabled by default.
@@ -18,4 +18,4 @@
 - Aligned authentication tokens between the browser examples and backend, and added dispatch, MVC registration, and body limit regression tests for both platforms.
 - Supported reactor-wide Surefire test selection in Boot 4 library modules while ensuring both example applications fail when a requested test is missing.
 
-This version has not been published to Maven Central. Test results and verification limits are documented in [README.md](README.md#verification-status).
+Published to Maven Central. Test results and verification limits are documented in [README.md](README.md#verification-status).
