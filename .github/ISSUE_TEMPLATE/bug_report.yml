@@ -1,0 +1,28 @@
+name: Bug report
+description: Report a reproducible Spring Precognition issue.
+body:
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: Java, Spring Boot, starter and frontend package versions.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Include endpoint signature, DTO, relevant configuration, request headers and body. Remove secrets and personal data.
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Include a failing test or sanitized response and startup diagnostic.

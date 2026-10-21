@@ -1,0 +1,75 @@
+name: Verify
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        java: ['17', '21']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Compile and verify both consumers
+        run: ./scripts/maven.sh -B -ntp test
+      - name: Verify real HTTP
+        run: ./scripts/maven.sh -B -ntp -Dtest=PrecognitionHttpIT test
+      - name: Verify actual Spring Security
+        run: ./scripts/maven.sh -B -ntp -Psecurity-verification test
+      - name: Verify official client against both backends
+        run: |
+          npm ci --prefix validation/client --ignore-scripts --no-audit --no-fund --legacy-peer-deps
+          for platform in boot3 boot4; do
+            PRECOGNITION_FIXTURES="../../target/validation/$platform-laravel-fixtures.json" npm test --prefix validation/client
+            PRECOGNITION_REPORT="$PWD/examples/$platform/target/surefire-reports/TEST-dev.precognition.example.PrecognitionIntegrationTest.xml" npm run test:http --prefix validation/client
+          done
+      - name: Build and install artifacts
+        run: ./scripts/maven.sh -B -ntp -DskipTests install
+      - name: Check distribution contents
+        run: python3 scripts/verify-artifacts.py
+      - name: Verify standalone installed-JAR consumers
+        run: ./scripts/verify-consumer.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: backend-reports-java-${{ matrix.java }}
+          path: |
+            examples/*/target/**/surefire-reports/
+            .tools/consumer-verification/*/target/surefire-reports/
+            target/validation/
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: ./scripts/maven.sh -B -ntp test
+      - run: npm ci --prefix validation/browser --ignore-scripts --no-audit --no-fund
+      - name: Install browser and operating-system dependencies
+        working-directory: validation/browser
+        run: npx playwright install --with-deps chromium
+      - name: Verify official React and Vue forms against both backends
+        env:
+          PRECOGNITION_BROWSER: chromium
+        run: ./scripts/verify-browser.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: browser-reports
+          path: target/browser-results/

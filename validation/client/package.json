@@ -1,0 +1,13 @@
+{
+  "name": "precognition-client-verification",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test client.test.mjs",
+    "test:http": "node --test live-http.test.mjs"
+  },
+  "dependencies": {
+    "es-toolkit": "1.52.0",
+    "laravel-precognition": "2.1.0"
+  }
+}

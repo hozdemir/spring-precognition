@@ -1,0 +1,17 @@
+{
+  "name": "precognition-browser-verification",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "playwright test", "serve": "node server.mjs" },
+  "dependencies": {
+    "laravel-precognition": "2.1.0",
+    "laravel-precognition-react": "2.1.0",
+    "laravel-precognition-vue": "2.1.0",
+    "es-toolkit": "1.52.0",
+    "axios": "1.13.2",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "vue": "3.5.27"
+  },
+  "devDependencies": { "@playwright/test": "1.64.1", "esbuild": "0.27.2" }
+}

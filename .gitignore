@@ -1,0 +1,51 @@
+# Local tooling, dependencies and generated reports
+/.maintainer/
+.tools/
+target/
+node_modules/
+playwright-report/
+test-results/
+blob-report/
+__pycache__/
+*.pyc
+
+# Compiled artifacts and JVM diagnostics
+*.class
+*.jar
+*.war
+!/.mvn/wrapper/maven-wrapper.jar
+*.hprof
+*.jfr
+hs_err_pid*
+*.log
+
+# Local credentials and private signing material
+.env
+.env.*
+!.env.example
+.npmrc
+.m2/
+.gnupg/
+/settings.xml
+/settings-security.xml
+/secrets/
+/credentials/
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+/signing-key.asc
+/signing-key.gpg
+/private-key.asc
+/private-key.gpg
+/private-key.pem
+
+# Personal IDE and operating-system files
+.idea/
+*.iml
+.DS_Store
+.settings/
+.classpath
+.project
+.vscode/

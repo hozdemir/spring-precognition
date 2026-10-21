@@ -1,0 +1,54 @@
+{
+  "properties": [
+    {
+      "name": "precognition.enabled",
+      "type": "java.lang.Boolean",
+      "defaultValue": true
+    },
+    {
+      "name": "precognition.normal-errors",
+      "type": "dev.precognition.spring.PrecognitionSettings$NormalErrors",
+      "defaultValue": "laravel"
+    },
+    {
+      "name": "precognition.limits.max-body-bytes",
+      "type": "java.lang.Integer",
+      "defaultValue": 65536
+    },
+    {
+      "name": "precognition.limits.max-selection-header-bytes",
+      "type": "java.lang.Integer",
+      "defaultValue": 4096
+    },
+    {
+      "name": "precognition.limits.max-selected-fields",
+      "type": "java.lang.Integer",
+      "defaultValue": 64
+    },
+    {
+      "name": "precognition.limits.max-field-name-length",
+      "type": "java.lang.Integer",
+      "defaultValue": 128
+    },
+    {
+      "name": "precognition.limits.max-dto-fields",
+      "type": "java.lang.Integer",
+      "defaultValue": 128
+    },
+    {
+      "name": "precognition.limits.max-violation-count",
+      "type": "java.lang.Integer",
+      "defaultValue": 512
+    },
+    {
+      "name": "precognition.limits.max-response-bytes",
+      "type": "java.lang.Integer",
+      "defaultValue": 65536
+    },
+    {
+      "name": "precognition.observability.metrics-enabled",
+      "type": "java.lang.Boolean",
+      "defaultValue": true
+    }
+  ]
+}
