@@ -4,9 +4,7 @@
 
 This repository contains the shared Java API, the Spring MVC implementation, Spring Boot 3 and 4 starters, example applications, and HTTP and browser verification suites. It is licensed under the [MIT License](LICENSE).
 
-**Distribution status:** The current source version is `0.1.0-SNAPSHOT`. It has not been published to Maven Central. Install the artifacts locally or publish them to your own Maven repository before using the dependencies below. The Maven group ID is `io.github.hozdemir`; the Java API package remains `dev.precognition.spring`. See [Verification status](#verification-status) for tested versions, completed checks, and outstanding verification.
-
-`-SNAPSHOT` marks a development version and can remain in source commits pushed to GitHub. A Maven Central release will use a version without that suffix. See [Maven's snapshot explanation](https://maven.apache.org/guides/getting-started/index.html#what-is-a-snapshot-version) and the [Central release requirements](https://central.sonatype.org/publish/requirements/).
+**Distribution status:** The source is being prepared for release `0.1.0`. It has not been published to Maven Central. Install the artifacts locally or publish them to your own Maven repository before using the dependencies below. The Maven group ID is `io.github.hozdemir`; the Java API package remains `dev.precognition.spring`. See [Verification status](#verification-status) for tested versions, completed checks, and outstanding verification.
 
 ## Why this project exists
 
@@ -62,7 +60,7 @@ This helper also installs into the standard `~/.m2/repository` used by consumer 
 <dependency>
   <groupId>io.github.hozdemir</groupId>
   <artifactId>precognition-spring-boot3-starter</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.1.0</version>
 </dependency>
 ```
 
@@ -72,7 +70,7 @@ This helper also installs into the standard `~/.m2/repository` used by consumer 
 <dependency>
   <groupId>io.github.hozdemir</groupId>
   <artifactId>precognition-spring-boot4-starter</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.1.0</version>
 </dependency>
 ```
 
@@ -88,7 +86,7 @@ repositories {
 
 dependencies {
     // For Boot 3.5, use precognition-spring-boot3-starter instead.
-    implementation("io.github.hozdemir:precognition-spring-boot4-starter:0.1.0-SNAPSHOT")
+    implementation("io.github.hozdemir:precognition-spring-boot4-starter:0.1.0")
 }
 ```
 
@@ -303,7 +301,7 @@ The tests check more than response status: the controller must not execute durin
 
 ## Verification status
 
-The complete external pipeline passed on October 21, 2026, for Maven group `io.github.hozdemir` at version `0.1.0-SNAPSHOT`, on Java 17.0.20, using Spring Boot 3.5.16 and 4.1.1. The run completed with exit code 0 in 60.786 seconds:
+The complete external pipeline passed on October 21, 2026, for Maven group `io.github.hozdemir` at release version `0.1.0`, on Java 17.0.20, using Spring Boot 3.5.16 and 4.1.1:
 
 | Check | Across both Boot versions |
 | --- | --- |
@@ -318,7 +316,9 @@ The complete external pipeline passed on October 21, 2026, for Maven group `io.g
 
 The pipeline also built, installed, and checked all 18 library artifacts: six runtime JARs, six source JARs, and six Javadoc JARs. Runtime checks include coordinates, license, and distribution contents. All 18 files matched their installed copies in the workspace's `.tools/m2` repository. Standalone consumers resolved the new coordinates' installed JARs without the library's reactor classes or manual configuration imports and passed real HTTP tests.
 
-The earlier [Verify workflow run](https://github.com/hozdemir/spring-precognition/actions/runs/39649289102) succeeded with the configured Java 17/21 backend matrix and browser job before the namespace migration. The updated workflow still needs to run against the new coordinates. GPG signing, Central bundle generation, server validation, and publication have not yet been verified. These results apply to the tested snapshot; a release version requires its own verification.
+The signed Central bundle contains seven POMs and 18 JARs. All 25 detached signatures and 100 checksum files were verified locally; bundled payloads match the built artifacts and source POMs. Example applications are excluded. Server-side validation and Central publication are still pending.
+
+The earlier [Verify workflow run](https://github.com/hozdemir/spring-precognition/actions/runs/39649289102) succeeded with the configured Java 17/21 backend matrix and browser job before the namespace migration. CI results for the final `0.1.0` release source are not yet recorded.
 
 The tested dependency versions were:
 

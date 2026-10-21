@@ -9,7 +9,7 @@
   </parent>
   <groupId>io.github.hozdemir</groupId>
   <artifactId>precognition-parent</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.1.0</version>
   <packaging>pom</packaging>
   <name>Spring Precognition</name>
   <description>Live server validation for Spring MVC forms, inspired by Laravel Precognition.</description>
@@ -25,7 +25,7 @@
     <connection>scm:git:https://github.com/hozdemir/spring-precognition.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/hozdemir/spring-precognition.git</developerConnection>
     <url>https://github.com/hozdemir/spring-precognition</url>
-    <tag>HEAD</tag>
+    <tag>v0.1.0</tag>
   </scm>
   <licenses>
     <license>

@@ -28,11 +28,11 @@ This builds the Maven modules, runs the default consumer, startup, and MVC tests
 Example paths after installation:
 
 ```text
-~/.m2/repository/io/github/hozdemir/precognition-parent/0.1.0-SNAPSHOT/
-~/.m2/repository/io/github/hozdemir/precognition-core/0.1.0-SNAPSHOT/
-~/.m2/repository/io/github/hozdemir/precognition-spring-webmvc/0.1.0-SNAPSHOT/
-~/.m2/repository/io/github/hozdemir/precognition-spring-boot4-autoconfigure/0.1.0-SNAPSHOT/
-~/.m2/repository/io/github/hozdemir/precognition-spring-boot4-starter/0.1.0-SNAPSHOT/
+~/.m2/repository/io/github/hozdemir/precognition-parent/0.1.0/
+~/.m2/repository/io/github/hozdemir/precognition-core/0.1.0/
+~/.m2/repository/io/github/hozdemir/precognition-spring-webmvc/0.1.0/
+~/.m2/repository/io/github/hozdemir/precognition-spring-boot4-autoconfigure/0.1.0/
+~/.m2/repository/io/github/hozdemir/precognition-spring-boot4-starter/0.1.0/
 ```
 
 Copying only the starter JAR is insufficient because the starter has transitive dependencies. Let Maven or Gradle resolve the complete dependency graph from the POMs.
@@ -45,7 +45,7 @@ Add the appropriate dependency to your application's `pom.xml`:
 <dependency>
   <groupId>io.github.hozdemir</groupId>
   <artifactId>precognition-spring-boot4-starter</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.1.0</version>
 </dependency>
 ```
 
@@ -60,7 +60,7 @@ repositories {
 }
 
 dependencies {
-    implementation("io.github.hozdemir:precognition-spring-boot4-starter:0.1.0-SNAPSHOT")
+    implementation("io.github.hozdemir:precognition-spring-boot4-starter:0.1.0")
 }
 ```
 

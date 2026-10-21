@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased — 0.1.0-SNAPSHOT
+## 0.1.0 — Unreleased
 
 - Set the Maven group ID to `io.github.hozdemir` while retaining the `dev.precognition.spring` Java API package.
 - Added project and SCM metadata, source and Javadoc artifacts, and an opt-in signed Central publishing profile with uploads disabled by default.
