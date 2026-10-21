@@ -2,19 +2,18 @@
 
 ## Unreleased — 0.1.0-SNAPSHOT
 
-- Public annotation, mode, request context ve authorization SPI'sini ayrı core modülüne taşı.
-- Spring MVC yürütmesi ile Boot 3/Jackson 2 ve Boot 4/Jackson 3 auto-configuration modüllerini ayır.
-- İki sürüme uygun bağımlılık starter'ları ve harici paketlerden çalışan örnek uygulamalar ekle.
-- Başlangıçta endpoint, model, güvenlik, MVC adapter, validator ve JSON converter uygunluğunu denetle.
-- FULL/SELECTIVE, ordinary DTO/scalar tipler, JSON wire-name/naming strategy ve sınırlı nested graph desteği ekle.
-- Ortak authorizer, request context accessor, disabled guard, normal hata politikası ve kaynak sınırlarını uygula.
-- İsteğe bağlı ObservationRegistry entegrasyonunda düşük kardinaliteli scope/status gözlemleri üret.
-- Resmi React/Vue doğrulaması, kurulmuş JAR tüketicileri, CI, kurulum/yayın belgeleri ve MIT lisansı ekle.
-- ERROR dispatch ve eksik filtre korumasında ortak başlık ayrıştırmasıyla hatalı precognitive isteklerin normal action'a düşmesini engelle.
-- Mevcut WebMvcRegistrations bean'ini koru; opt-in endpoint ile uyumsuz özel adapter'ı başlangıçta reddet.
-- Unknown-length JSON gövdesinin trailing içeriğini de boyut sınırına dahil et; body okumayı endpoint yetkilendirmesinden sonra ve binding'den önce sınırla.
-- Tarayıcı örneklerinde authentication token'ını backend ile eşleştir; iki platform için dispatch, MVC kayıt ve body limit regresyonları ekle.
-- Boot 4 library modüllerinde reactor genelindeki hedefli Surefire test seçimini destekle; iki örnek uygulamada eksik test seçiminin sessizce geçmesini engelle.
-- README'yi motivasyon, Laravel referansları, kurulum ve kullanım örnekleri korunarak İngilizceye çevir.
+- Moved the public annotation, validation modes, request context, and authorization SPI into a separate core module.
+- Separated the Spring MVC implementation from the Boot 3/Jackson 2 and Boot 4/Jackson 3 auto-configuration modules.
+- Added platform-specific dependency starters and example applications that consume them from separate packages.
+- Added startup compatibility checks for endpoints, models, security, MVC adapters, validators, and JSON converters.
+- Added FULL and SELECTIVE validation, ordinary DTOs and scalar types, JSON wire names and naming strategies, and bounded nested graph support.
+- Implemented shared authorizers, a request context accessor, a guard for disabled mode, normal submission error policies, and resource limits.
+- Added optional ObservationRegistry integration with low-cardinality scope and status tags.
+- Added official React/Vue client verification, installed-JAR consumers, CI configuration, installation documentation, and the MIT License.
+- Shared header parsing between the ERROR dispatch and missing-filter guards to prevent malformed precognitive requests from reaching the normal controller action.
+- Preserved existing WebMvcRegistrations beans and rejected custom adapters incompatible with opted-in endpoints at startup.
+- Included trailing content in the size limit for JSON bodies of unknown length, checking the complete body after endpoint authorization and before binding.
+- Aligned authentication tokens between the browser examples and backend, and added dispatch, MVC registration, and body limit regression tests for both platforms.
+- Supported reactor-wide Surefire test selection in Boot 4 library modules while ensuring both example applications fail when a requested test is missing.
 
-Kaynak sürümü henüz Maven Central'a yayımlanmadı. Test sonuçları ve doğrulama sınırları `README.md` içindedir.
+This version has not been published to Maven Central. Test results and verification limits are documented in [README.md](README.md#verification-status).
